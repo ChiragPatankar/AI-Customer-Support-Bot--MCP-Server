@@ -232,8 +232,8 @@ The server provides health check endpoints for monitoring:
 
 ## License
 
-[Your License Here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
-For support, please contact [Your Contact Information] 
+For support, please create an issue in the repository or contact the development team. 
