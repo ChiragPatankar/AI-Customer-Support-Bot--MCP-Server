@@ -237,3 +237,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 For support, please create an issue in the repository or contact the development team. 
+
+
+<a href="https://glama.ai/mcp/servers/@ChiragPatankar/AI-Customer-Support-Bot---MCP-Server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@ChiragPatankar/AI-Customer-Support-Bot---MCP-Server/badge" />
+</a>
