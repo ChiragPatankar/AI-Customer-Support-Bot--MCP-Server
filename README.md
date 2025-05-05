@@ -230,6 +230,10 @@ The server provides health check endpoints for monitoring:
 4. Push to the branch
 5. Create a Pull Request
 
+## Verification Badge
+
+[![Verified on MseeP](https://mseep.ai/badge.svg)](https://mseep.ai/app/1dfb7c9a-f35f-420d-9569-3dbcea100dba)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
