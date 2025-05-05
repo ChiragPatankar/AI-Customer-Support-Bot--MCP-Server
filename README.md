@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/chiragpatankar-ai-customer-support-bot-mcp-server-badge.png)](https://mseep.ai/app/chiragpatankar-ai-customer-support-bot-mcp-server)
+
 # AI Customer Support Bot - MCP Server
 
 A Model Context Protocol (MCP) server that provides AI-powered customer support using Cursor AI and Glama.ai integration.
