@@ -232,7 +232,7 @@ The server provides health check endpoints for monitoring:
 
 ## Flowchart
 
-![Flowchart](flowchart.svg)
+![Flowchart](Flowchart.svg)
 
 ## Verification Badge
 
