@@ -1,252 +1,368 @@
-# AI Customer Support Bot - MCP Server
+# 🤖 AI Customer Support Bot - MCP Server
 
-A Model Context Protocol (MCP) server that provides AI-powered customer support using Cursor AI and Glama.ai integration.
+<div align="center">
 
-## Features
+![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white)
+![MCP](https://img.shields.io/badge/MCP-Protocol-green)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-- Real-time context fetching from Glama.ai
-- AI-powered response generation with Cursor AI
-- Batch processing support
-- Priority queuing
-- Rate limiting
-- User interaction tracking
-- Health monitoring
-- MCP protocol compliance
+*A modern, extensible MCP server framework for building AI-powered customer support systems*
 
-## Prerequisites
+[Features](#-features) • [Quick Start](#-quick-start) • [API Reference](#-api-reference) • [Architecture](#-architecture) • [Contributing](#-contributing)
+
+</div>
+
+---
+
+## 🌟 Overview
+
+A **Model Context Protocol (MCP)** compliant server framework built with modern Python. Designed for developers who want to create intelligent customer support systems without vendor lock-in. Clean architecture, battle-tested patterns, and ready for any AI provider.
+
+```mermaid
+graph TB
+    Client[HTTP Client] --> API[API Server]
+    API --> MW[Middleware Layer]
+    MW --> SVC[Service Layer]
+    SVC --> CTX[Context Manager]
+    SVC --> AI[AI Integration]
+    SVC --> DAL[Data Access Layer]
+    DAL --> DB[(PostgreSQL)]
+```
+
+## ✨ Features
+
+<table>
+<tr>
+<td>
+
+🏗️ **Clean Architecture**  
+Layered design with clear separation of concerns
+
+📡 **MCP Compliant**  
+Full Model Context Protocol implementation
+
+</td>
+<td>
+
+🔒 **Production Ready**  
+Auth, rate limiting, monitoring included
+
+🚀 **High Performance**  
+Built on FastAPI with async support
+
+</td>
+</tr>
+<tr>
+<td>
+
+🔌 **AI Agnostic**  
+Integrate any AI provider easily
+
+📊 **Health Monitoring**  
+Comprehensive metrics and diagnostics
+
+</td>
+<td>
+
+🛡️ **Secure by Default**  
+Token auth and input validation
+
+📦 **Batch Processing**  
+Handle multiple queries efficiently
+
+</td>
+</tr>
+</table>
+
+## 🚀 Quick Start
+
+### Prerequisites
 
 - Python 3.8+
-- PostgreSQL database
-- Glama.ai API key
-- Cursor AI API key
+- PostgreSQL
+- Your favorite AI service (OpenAI, Anthropic, etc.)
 
-## Installation
+### Installation
 
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-name>
-```
+# Clone and setup
+git clone https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server.git
+cd AI-Customer-Support-Bot--MCP-Server
 
-2. Create and activate a virtual environment:
-```bash
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-3. Install dependencies:
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
 
-4. Create a `.env` file based on `.env.example`:
-```bash
+# Setup environment
 cp .env.example .env
+# Edit .env with your configuration
 ```
 
-5. Configure your `.env` file with your credentials:
-```env
-# API Keys
-GLAMA_API_KEY=your_glama_api_key_here
-CURSOR_API_KEY=your_cursor_api_key_here
+### Configuration
 
-# Database
+```bash
+# .env file
 DATABASE_URL=postgresql://user:password@localhost/customer_support_bot
-
-# API URLs
-GLAMA_API_URL=https://api.glama.ai/v1
-
-# Security
-SECRET_KEY=your_secret_key_here
-
-# MCP Server Configuration
-SERVER_NAME="AI Customer Support Bot"
-SERVER_VERSION="1.0.0"
-API_PREFIX="/mcp"
-MAX_CONTEXT_RESULTS=5
-
-# Rate Limiting
+SECRET_KEY=your-super-secret-key
 RATE_LIMIT_REQUESTS=100
 RATE_LIMIT_PERIOD=60
-
-# Logging
-LOG_LEVEL=INFO
 ```
 
-6. Set up the database:
+### Run
+
 ```bash
-# Create the database
+# Setup database
 createdb customer_support_bot
 
-# Run migrations (if using Alembic)
-alembic upgrade head
-```
-
-## Running the Server
-
-Start the server:
-```bash
+# Start server
 python app.py
+# 🚀 Server running at http://localhost:8000
 ```
 
-The server will be available at `http://localhost:8000`
+## 📡 API Reference
 
-## API Endpoints
+<details>
+<summary><strong>Core Endpoints</strong></summary>
 
-### 1. Root Endpoint
-```bash
-GET /
-```
-Returns basic server information.
-
-### 2. MCP Version
-```bash
-GET /mcp/version
-```
-Returns supported MCP protocol versions.
-
-### 3. Capabilities
-```bash
-GET /mcp/capabilities
-```
-Returns server capabilities and supported features.
-
-### 4. Process Request
-```bash
-POST /mcp/process
-```
-Process a single query with context.
-
-Example request:
-```bash
-curl -X POST http://localhost:8000/mcp/process \
-  -H "Content-Type: application/json" \
-  -H "X-MCP-Auth: your-auth-token" \
-  -H "X-MCP-Version: 1.0" \
-  -d '{
-    "query": "How do I reset my password?",
-    "priority": "high",
-    "mcp_version": "1.0"
-  }'
-```
-
-### 5. Batch Processing
-```bash
-POST /mcp/batch
-```
-Process multiple queries in a single request.
-
-Example request:
-```bash
-curl -X POST http://localhost:8000/mcp/batch \
-  -H "Content-Type: application/json" \
-  -H "X-MCP-Auth: your-auth-token" \
-  -H "X-MCP-Version: 1.0" \
-  -d '{
-    "queries": [
-      "How do I reset my password?",
-      "What are your business hours?",
-      "How do I contact support?"
-    ],
-    "mcp_version": "1.0"
-  }'
-```
-
-### 6. Health Check
-```bash
+### Health Check
+```http
 GET /mcp/health
 ```
-Check server health and service status.
 
-## Rate Limiting
+### Process Single Query
+```http
+POST /mcp/process
+Content-Type: application/json
+X-MCP-Auth: your-token
+X-MCP-Version: 1.0
 
-The server implements rate limiting with the following defaults:
-- 100 requests per 60 seconds
-- Rate limit information is included in the health check endpoint
-- Rate limit exceeded responses include reset time
+{
+  "query": "How do I reset my password?",
+  "priority": "high"
+}
+```
 
-## Error Handling
+### Batch Processing
+```http
+POST /mcp/batch
+Content-Type: application/json
+X-MCP-Auth: your-token
 
-The server returns structured error responses in the following format:
+{
+  "queries": [
+    "How do I reset my password?",
+    "What are your business hours?"
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary><strong>Response Format</strong></summary>
+
+### Success Response
 ```json
 {
-  "code": "ERROR_CODE",
-  "message": "Error description",
-  "details": {
-    "timestamp": "2024-02-14T12:00:00Z",
-    "additional_info": "value"
+  "status": "success",
+  "data": {
+    "response": "Generated AI response",
+    "confidence": 0.95,
+    "processing_time": "120ms"
+  },
+  "meta": {
+    "request_id": "req_123456",
+    "timestamp": "2024-02-14T12:00:00Z"
   }
 }
 ```
 
-Common error codes:
-- `RATE_LIMIT_EXCEEDED`: Rate limit exceeded
-- `UNSUPPORTED_MCP_VERSION`: Unsupported MCP version
-- `PROCESSING_ERROR`: Error processing request
-- `CONTEXT_FETCH_ERROR`: Error fetching context from Glama.ai
-- `BATCH_PROCESSING_ERROR`: Error processing batch request
+### Error Response
+```json
+{
+  "code": "RATE_LIMIT_EXCEEDED",
+  "message": "Rate limit exceeded",
+  "details": {
+    "retry_after": 60,
+    "timestamp": "2024-02-14T12:00:00Z"
+  }
+}
+```
 
-## Development
+</details>
+
+## 🏗️ Architecture
 
 ### Project Structure
 ```
-.
-├── app.py              # Main application file
-├── database.py         # Database configuration
-├── middleware.py       # Middleware (rate limiting, validation)
-├── models.py          # Database models
-├── mcp_config.py      # MCP-specific configuration
-├── requirements.txt   # Python dependencies
-└── .env              # Environment variables
+📦 AI-Customer-Support-Bot--MCP-Server
+├── 🚀 app.py              # FastAPI application
+├── 🗄️  database.py         # Database configuration
+├── 🛡️  middleware.py       # Auth & rate limiting
+├── 📋 models.py          # ORM models
+├── ⚙️  mcp_config.py      # MCP protocol config
+├── 📄 requirements.txt   # Dependencies
+└── 📝 .env.example      # Environment template
 ```
 
-### Adding New Features
+### Layer Responsibilities
 
-1. Update `mcp_config.py` with new configuration options
-2. Add new models in `models.py` if needed
-3. Create new endpoints in `app.py`
-4. Update capabilities endpoint to reflect new features
+| Layer | Purpose | Components |
+|-------|---------|------------|
+| **API** | HTTP endpoints, validation | FastAPI routes, Pydantic models |
+| **Middleware** | Auth, rate limiting, logging | Token validation, request throttling |
+| **Service** | Business logic, AI integration | Context management, AI orchestration |
+| **Data** | Persistence, models | PostgreSQL, SQLAlchemy ORM |
 
-## Security
+## 🔌 Extending with AI Services
 
-- All MCP endpoints require authentication via `X-MCP-Auth` header
-- Rate limiting is implemented to prevent abuse
-- Database credentials should be kept secure
-- API keys should never be committed to version control
+### Add Your AI Provider
 
-## Monitoring
+1. **Install your AI SDK:**
+```bash
+pip install openai  # or anthropic, cohere, etc.
+```
 
-The server provides health check endpoints for monitoring:
-- Service status
-- Rate limit usage
-- Connected services
-- Processing times
+2. **Configure environment:**
+```bash
+# Add to .env
+AI_SERVICE_API_KEY=sk-your-api-key
+AI_SERVICE_MODEL=gpt-4
+```
 
-## Contributing
+3. **Implement service integration:**
+```python
+# In service layer
+class AIService:
+    async def generate_response(self, query: str, context: dict) -> str:
+        # Your AI integration here
+        return ai_response
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+## 🔧 Development
 
-## Flowchart
+### Running Tests
+```bash
+pytest tests/
+```
 
-![Flowchart](Flowchart.png)
+### Code Quality
+```bash
+# Format code
+black .
 
-## Verification Badge
+# Lint
+flake8
 
-[![Verified on MseeP](https://mseep.ai/badge.svg)](https://mseep.ai/app/1dfb7c9a-f35f-420d-9569-3dbcea100dba)
+# Type checking
+mypy .
+```
 
-## License
+### Docker Support
+```dockerfile
+# Coming soon - Docker containerization
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📊 Monitoring & Observability
 
-## Support
+### Health Metrics
+- ✅ Service uptime
+- 🔗 Database connectivity
+- 📈 Request rates
+- ⏱️ Response times
+- 💾 Memory usage
 
-For support, please create an issue in the repository or contact the development team. 
+### Logging
+```python
+# Structured logging included
+{
+  "timestamp": "2024-02-14T12:00:00Z",
+  "level": "INFO",
+  "message": "Query processed",
+  "request_id": "req_123456",
+  "processing_time": 120
+}
+```
 
+## 🔒 Security
 
-<a href="https://glama.ai/mcp/servers/@ChiragPatankar/AI-Customer-Support-Bot---MCP-Server">
-  <img width="380" height="200" src="https://glama.ai/mcp/servers/@ChiragPatankar/AI-Customer-Support-Bot---MCP-Server/badge" />
-</a>
+### Built-in Security Features
+- 🔐 **Token Authentication** - Secure API access
+- 🛡️ **Rate Limiting** - DoS protection
+- ✅ **Input Validation** - SQL injection prevention
+- 📝 **Audit Logging** - Request tracking
+- 🔒 **Environment Secrets** - Secure config management
+
+## 🚀 Deployment
+
+### Environment Setup
+```bash
+# Production environment variables
+DATABASE_URL=postgresql://prod-user:password@prod-host/db
+RATE_LIMIT_REQUESTS=1000
+LOG_LEVEL=WARNING
+```
+
+### Scaling Considerations
+- Use connection pooling for database
+- Implement Redis for rate limiting in multi-instance setups
+- Add load balancer for high availability
+- Monitor with Prometheus/Grafana
+
+## 🤝 Contributing
+
+We love contributions! Here's how to get started:
+
+### Development Setup
+```bash
+# Fork the repo, then:
+git clone https://github.com/your-username/AI-Customer-Support-Bot--MCP-Server.git
+cd AI-Customer-Support-Bot--MCP-Server
+
+# Create feature branch
+git checkout -b feature/amazing-feature
+
+# Make your changes
+# ...
+
+# Test your changes
+pytest
+
+# Submit PR
+```
+
+### Contribution Guidelines
+- 📝 Write tests for new features
+- 📚 Update documentation
+- 🎨 Follow existing code style
+- ✅ Ensure CI passes
+
+## 📈 Roadmap
+
+- [ ] 🐳 Docker containerization
+- [ ] 🔄 Redis caching layer  
+- [ ] 📊 Prometheus metrics
+- [ ] 🔍 OpenTelemetry tracing
+- [ ] 🌐 GraphQL API
+- [ ] 📱 WebSocket support
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Built with ❤️ by [Chirag Patankar](https://github.com/ChiragPatankar)**
+
+⭐ **Star this repo if you find it helpful!** ⭐
+
+[Report Bug](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Request Feature](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Documentation](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/wiki)
+
+</div>
