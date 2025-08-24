@@ -360,4 +360,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 [Report Bug](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Request Feature](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Documentation](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/wiki)
 
 </div>
-
