@@ -10,6 +10,7 @@
 
 *A modern, extensible MCP server framework for building AI-powered customer support systems*
 
+
 [Features](#-features) • [Quick Start](#-quick-start) • [API Reference](#-api-reference) • [Architecture](#-architecture) • [Contributing](#-contributing)
 
 </div>
@@ -342,14 +343,7 @@ pytest
 - 🎨 Follow existing code style
 - ✅ Ensure CI passes
 
-## 📈 Roadmap
-
-- [ ] 🐳 Docker containerization
-- [ ] 🔄 Redis caching layer  
-- [ ] 📊 Prometheus metrics
-- [ ] 🔍 OpenTelemetry tracing
-- [ ] 🌐 GraphQL API
-- [ ] 📱 WebSocket support
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/chiragpatankar-ai-customer-support-bot-mcp-server-badge.png)](https://mseep.ai/app/chiragpatankar-ai-customer-support-bot-mcp-server)
 
 ## 📄 License
 
@@ -366,3 +360,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 [Report Bug](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Request Feature](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/issues) • [Documentation](https://github.com/ChiragPatankar/AI-Customer-Support-Bot--MCP-Server/wiki)
 
 </div>
+
